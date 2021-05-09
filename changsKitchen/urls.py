@@ -21,5 +21,9 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.Home, name='home'),
-    path('', views.Home, name='home')
+    path('', views.Home, name='home'),
+    path('menu/', views.Menu, name='menu'),
+    path('food/', views.Food, name='food'),
+    path('order/', views.Order, name='order'),
+    path('food_add/', views.Food_Add, name='food_add'),
 ]

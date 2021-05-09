@@ -1,8 +1,4 @@
-from django.db import models
-from .forms import DishAddForm
-from .views import Food_Add
-import json
-# Create your models here.
+from django import forms
 
 import pyrebase
 
@@ -28,6 +24,18 @@ db = firebase.database()
    # price = DishAddForm.price.clean.price
    # data = {"description":description,"name": name,"price": price}
     #db.push(data)
-#data={"name":"John", "age" : "12"}
-#db.push(data)
 
+class DishAddForm(forms.Form):
+    descrption= forms.CharField(max_length=1000)
+    name= forms.CharField(max_length=1000)
+    price= forms.FloatField()
+    
+    def clean(self):
+        cleaned_data = super(DishAddForm, self).clean()
+        descrption = cleaned_data.get('descrption')
+        name = cleaned_data.get('name')
+        price = cleaned_data.get('price')
+        if not descrption and not name and not price:
+            raise forms.ValidationError('You have to write something!')
+        data = {"descrption":descrption,"name": name,"price": price}
+        db.child('dishes').push(data)

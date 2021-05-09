@@ -8,18 +8,11 @@
         <div class="wrap">
             <div class="intro_bg2">
                 <div class="header">
-                    <div class="search_area">
-                        <form>
-                            <input type="search" placeholder="Search">
-                            <span>Search</span>
-                        </form>
-                    </div>
                     <ul class="nav">
-                        <li><a href="home.html">HOME</a></li>
-                        <li><a href="menu.html">MENU</a></li>
-                        <li><a href="food.html">FOOD</a></li>
-                        <li><a href="order.html">ORDER</a></li>
-                        <li><a href="login.html">LOGIN</a></li>
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
                     </ul>
                 </div>
                 <div class="intro_text">
@@ -28,45 +21,12 @@
                 </div>
             </div>
 
-            <ul class="food0">
-                <div>Name:</div>
-                <div>
-                    <from>
-                        <input type="Name" placeholder="Name">
-                    </from>
-                </div>
-            </ul>
-            
-            <ul class="food0">
-                <div>Price:</div>
-                <div>
-                    <from>
-                        <input type="Price" placeholder="Price">
-                    </from>
-                </div>
-            </ul>
 
-            <ul class="food0">
-                <div class="food1"><a href=#>Add</a></div>
-                <div></div>
-            </ul>
-
-
-            
-
-
-            <!--footer>
-                <div>
-                    LOGO
-                </div>
-                <div>
-                    Chang's Kitchen
-                    <br> Address: Beloit WI
-                    <br> 1-222-333-4444
-                    <br> Copyright &copy;2021 Chang's Kitchen
-                    <br> changskitchen@gmail.com
-                </div>
-            </footer-->
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Submit</button>
+            </form>
 
 
         </div>
