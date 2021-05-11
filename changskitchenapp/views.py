@@ -34,6 +34,13 @@ def  Users (request):
 def  Menu (request):
     return render (request, "menu.html")
 
+def  Menu_Manage (request):
+    return render (request, "menu_manage.html")
+
+def  Menu_Add (request):
+    return render (request, "menu_add.html")
+
+
 def  Food (request):
     child = db.child('dishes').get()
     dishes = child.val()
@@ -68,3 +75,9 @@ def Food_Add(request):
     return render(request, 'food_add.html', {'form': form})
 
 
+
+def  Order (request):
+    return render (request, "order.html")
+
+def Order_History (request):
+    return render (request, "order_history.html")
