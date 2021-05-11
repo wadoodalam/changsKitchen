@@ -29,11 +29,8 @@ urlpatterns = [
     path('menu_add/', views.Menu_Add, name='menu_add'),
 
     path('food/', views.Food, name='food'),
-<<<<<<< HEAD
     path('order/', views.Order, name='order'),
     path('users/', views.Users, name='users'),
-=======
->>>>>>> cfe306246edd0712d65c481dc37f92b402c4f86f
     path('food_add/', views.Food_Add, name='food_add'),
 
     path('order/', views.Order, name='order'),
