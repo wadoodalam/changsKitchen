@@ -32,11 +32,6 @@ def  Users (request):
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
-    Email = [] 
-    Password = []
-    Name = []
-    Phone = []
-    Uid = []
     for i in orderslist:
 
         email = db.child('users').child(i).child('email').get().val()
@@ -45,15 +40,17 @@ def  Users (request):
         phone = str(db.child('users').child(i).child('phone').get().val())
         uid = db.child('users').child(i).child('uid').get().val()
 
-        Email.append(email)
-        Name.append(name)
-        Password.append(password)
-        Phone.append(phone)
-        Uid.append(uid)
+        user = {
+            "email": email,
+            "name": name,
+            "password": password,
+            "phone": phone,
+            "uid": uid
+        }
 
         # the list contains the description, name and price of all dishes.
         
-        comb_list = Email + Name + Password + Phone + Uid
+        comb_list.append(user)
     
     context={
         "comb_list": comb_list,
