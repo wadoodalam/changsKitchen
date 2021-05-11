@@ -34,6 +34,5 @@ for i in dish_list:
     Price.append(price)
     comb_list = Description+Name+Price
     
-print(comb_list)
 
 

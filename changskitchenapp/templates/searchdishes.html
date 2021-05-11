@@ -1,0 +1,25 @@
+{% load static %}
+<html lang="en">
+<head>
+	<title>User's List</title>
+	<link rel='stylesheet' href="{% static '/css/style.css' %}">
+</head>
+<body>
+	<div class="tm-container">
+		<div class="tm-main-content">
+			<section class="tm-section tm-section-small text-center">
+			<!--Showng all the details we retrieved Here-->
+			{% for description, name, price in comb_lis %}
+			<h1>Here are the results:</h1>
+			<div class="ans">
+				<h3 class="description">Description: {{description}}</h3>
+				<h3 class="name">Name: {{name}}</h3>
+                <h3 class="price">Password: {{password}}</h3>
+			</div>
+			{% endfor %}
+			</section>
+		</div>
+		<br>
+	</div>
+</body>
+</html>
