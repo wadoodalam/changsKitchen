@@ -78,6 +78,3 @@ def Food_Add(request):
 
 def  Order (request):
     return render (request, "order.html")
-
-def Order_History (request):
-    return render (request, "order_history.html")
