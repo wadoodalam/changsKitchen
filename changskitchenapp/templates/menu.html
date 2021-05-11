@@ -1,8 +1,9 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
         <div class="wrap">
@@ -31,7 +32,7 @@
                 <div>
                     <h2>Today's Menu</h2>
                 </div>
-                <div class="manage"><a href="menu_manage.html">Manage</a></div>
+                <div class="manage"><a href="/menu_manage">Manage</a></div>
             </ul>
 
             <br>

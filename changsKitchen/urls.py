@@ -20,10 +20,17 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', views.Home, name='home'),
+
     path('', views.Home, name='home'),
+    path('home/', views.Home, name='home'),
+
     path('menu/', views.Menu, name='menu'),
+    path('menu_manage/', views.Menu_Manage, name='menu_manage'),
+    path('menu_add/', views.Menu_Add, name='menu_add'),
+
     path('food/', views.Food, name='food'),
-    path('order/', views.Order, name='order'),
     path('food_add/', views.Food_Add, name='food_add'),
+
+    path('order/', views.Order, name='order'),
+    path('order_history/', views.Order_History, name='order_history'),
 ]
