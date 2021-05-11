@@ -77,21 +77,20 @@ def  Food (request):
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
-    Description = [] 
-    Name = []
-    Price = []
     for i in orderslist:
 
         description = db.child('dishes').child(i).child('description').get().val()
         name = db.child('dishes').child(i).child('name').get().val()
         price = str(db.child('dishes').child(i).child('price').get().val())
         
-        Description.append(description)
-        Name.append(name)
-        Price.append(price)
+        food = {
+            "description": description,
+            "name": name,
+            "price": price
+        }
         # the list contains the description, name and price of all dishes.
         # example output for comb_list = [None, None, 'none1', 'chicken 65', '0.0', '12.0']
-        comb_list = Description+Name+Price
+        comb_list.append(food)
     
     context={
         "comb_list": comb_list,
