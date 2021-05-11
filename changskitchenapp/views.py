@@ -172,11 +172,11 @@ def Searchusers(request):
             data = db.child('users').shallow().get().val()
             uidlist = []
             requid = 'null'
-              
+            
             # append all the id in uidlist
             for i in data:
                 uidlist.append(i)
-                  
+                
             # if we have find all the uid then
             # we will look for the one we need    
             for i in uidlist:
@@ -191,11 +191,9 @@ def Searchusers(request):
                 # we will store that in requid
                 if (val == value or val1 == value or val2 == value ) :
                     requid = i
-            print(requid)
             if requid=='null':
                 return render(request, "search.html")
-            print(requid)
-              
+            
             # then we will retrieve all the data related to that uid
             email = db.child('users').child(requid).child('email').get().val()
             name = db.child('users').child(requid).child('name').get().val()
@@ -211,24 +209,10 @@ def Searchusers(request):
             Uid = []
             Uid.append(uid)
             comb_lis = zip(Email, Name, Phone, Uid)
-              
+            
             # send all data in zip form to searchusers.html
             return render(request, "searchusers.html", {"comb_lis": comb_lis})
-
-def SearchDishes(request):
-    value = request.POST.get('search')
-      
-    # if no value is given then render to search.h6tml
-    if value =="":
-        return render(request, "search.html")
-    title = request.POST['category']
-    if title =="":
-        return render(request, "search.html")
-    if value is None or title is None:
-        return render(request, "search.html")
-    else:
-        if title == "Dishes":
-
+        elif title == "Dishes":
             data = db.child('dishes').shallow().get().val()
             uidlist = []
             requid = 'null'
@@ -241,11 +225,15 @@ def SearchDishes(request):
             # we will look for the one we need    
             for i in uidlist:
                 val = db.child('dishes').child(i).child('name').get().val()
+                val1 = db.child('dishes').child(i).child('description').get().val()
+                val2 = str(db.child('dishes').child(i).child('price').get().val())
                 val=val.lower()
+                val1=val1.lower()
+                val2=val2.lower()
                 value=value.lower()
                 # if uid we want is value then
                 # we will store that in requid
-                if (val == value):
+                if (val == value or val1 == value or val2 == value):
                     requid = i
             print(requid)
             if requid=='null':
