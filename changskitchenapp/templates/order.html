@@ -47,10 +47,22 @@
                     <th>User Id</th>
                 </tr>
 
-                
+                {% for order in comb_list %}
+
                 <tr>
-                    <!-- Display from the context rendered(Ha)-->
+                    <td>{{order.date}}</td>
+                    <td>{{order.finalPrice}}</td>
+                    <td>{{order.items}}</td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.stringDate}}</td>
+                    <td>{{order.summary}}</td>
+                    <td>{{order.cost}}</td>
+                    <td>{{order.tax}}</td>
+                    <td>{{order.tip}}</td>
+                    <td>{{order.uid}}</td>
                 </tr>
+
+                {% endfor %}
                 
             </table>
         

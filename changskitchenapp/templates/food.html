@@ -29,19 +29,21 @@
         <div class="datatable" id="tableContainer">
             <table>
                 <tr>
-                    <th>Description</th>
                     <th>Name</th>
+                    <th>Description</th>
                     <th>Price</th>
                 </tr>
 
-                
+
+                {% for food in comb_list %}
+
                 <tr>
-                    
-                    <tr>
-                        <!-- Display from the context rendered(Ha)-->
-                    </tr>
-                    
+                    <td>{{food.name}}</td>
+                    <td>{{food.description}}</td>
+                    <td>{{food.price}}</td>
                 </tr>
+
+                {% endfor %}
                 
             </table>          
 
