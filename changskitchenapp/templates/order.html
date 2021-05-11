@@ -9,10 +9,10 @@
         <div class="wrap">
             <div class="intro_bg3">
                 <div class="header">
-                    <div class="search_area">
-                        <form>
-                            <input type="search" placeholder="Search">
-                            <span>Search</span>
+                    <div class="searchbar">
+                        <form method="GET" action="" id="searchform">
+                          <input class="searchfield" id="searchbox" name="q" type="text" value="{{ request.GET.q }}" placeholder="Search..."/>
+                          <button type = "submit" name = "search"> SEARCH </button>
                         </form>
                     </div>
                     <ul class="nav">
@@ -49,18 +49,7 @@
 
                 
                 <tr>
-                {% for instance in orders %}
-                    <td>{{instance.date}}</td>
-                    <td>{{instance.finalPrice}}</td>
-                    <td>{{instance.items}}</td>
-                    <td>{{instance.status}}</td>
-                    <td>{{instance.stringDate}}</td>
-                    <td>{{instance.summary}}</td>
-                    <td>{{instance.cost}}</td>
-                    <td>{{instance.tax}}</td>
-                    <td>{{instance.tip}}</td>
-                    <td>{{instance.uid}}</td>
-                {% endfor %}
+                    <!-- Display from the context rendered(Ha)-->
                 </tr>
                 
             </table>

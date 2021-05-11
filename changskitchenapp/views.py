@@ -1,3 +1,5 @@
+
+from typing_extensions import ParamSpec
 from django.shortcuts import (get_object_or_404,  render,  HttpResponseRedirect,)
 from django.views.generic import UpdateView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -24,10 +26,37 @@ def  Home (request):
     return render (request, "home.html")
 
 def  Users (request):
-    child = db.child('users').get()
-    users = child.val()
+    data = db.child('users').shallow().get().val()
+    orderslist = []
+    comb_list = []
+    # append all the id in uidlist
+    for i in data:
+        orderslist.append(i)
+    Email = [] 
+    Password = []
+    Name = []
+    Phone = []
+    Uid = []
+    for i in orderslist:
+
+        email = db.child('users').child(i).child('email').get().val()
+        name = db.child('users').child(i).child('name').get().val()
+        password = db.child('users').child(i).child('password').get().val()
+        phone = str(db.child('users').child(i).child('phone').get().val())
+        uid = db.child('users').child(i).child('uid').get().val()
+
+        Email.append(email)
+        Name.append(name)
+        Password.append(password)
+        Phone.append(phone)
+        Uid.append(uid)
+
+        # the list contains the description, name and price of all dishes.
+        
+        comb_list = Email + Name + Password + Phone + Uid
+    
     context={
-        "users": users,
+        "comb_list": comb_list,
     }
     return render (request, "users.html",context)
 
@@ -42,20 +71,81 @@ def  Menu_Add (request):
 
 
 def  Food (request):
-    child = db.child('dishes').get()
-    dishes = child.val()
+    data = db.child('dishes').shallow().get().val()
+    orderslist = []
+    comb_list = []
+    # append all the id in uidlist
+    for i in data:
+        orderslist.append(i)
+    Description = [] 
+    Name = []
+    Price = []
+    for i in orderslist:
+
+        description = db.child('dishes').child(i).child('description').get().val()
+        name = db.child('dishes').child(i).child('name').get().val()
+        price = str(db.child('dishes').child(i).child('price').get().val())
+        
+        Description.append(description)
+        Name.append(name)
+        Price.append(price)
+        # the list contains the description, name and price of all dishes.
+        # example output for comb_list = [None, None, 'none1', 'chicken 65', '0.0', '12.0']
+        comb_list = Description+Name+Price
+    
     context={
-        "dishes": dishes,
-    }   
+        "comb_list": comb_list,
+    }
     return render (request, "food.html", context)
 
 def  Order (request):
-    child = db.child('orders').get()
-    orders = child.val()
+    data = db.child('orders').shallow().get().val()
+    orderslist = []
+    comb_list = []
+    # append all the id in uidlist
+    for i in data:
+        orderslist.append(i)
+    Date = [] 
+    FinalPrice = []
+    Items = []
+    Status = []
+    StringDate = []
+    Summary = []
+    Cost = []
+    Tax = []
+    Tip = []
+    Uid = []
+    for i in orderslist:
+
+        date = db.child('orders').child(i).child('date').get().val()
+        finalPrice = str(db.child('orders').child(i).child('finalPrice').get().val())
+        items = db.child('orders').child(i).child('items').get().val()
+        status = db.child('orders').child(i).child('status').get().val()
+        stringDate = db.child('orders').child(i).child('stringDate').get().val()
+        summary = db.child('orders').child(i).child('summary').get().val()
+        cost = str(db.child('orders').child(i).child('cost').get().val())
+        tax = str(db.child('orders').child(i).child('tax').get().val())
+        tip = str(db.child('orders').child(i).child('tip').get().val())
+        uid = db.child('orders').child(i).child('uid').get().val()
+
+        Date.append(date)
+        FinalPrice.append(finalPrice)
+        Items.append(items)
+        Status.append(status)
+        StringDate.append(stringDate)
+        Summary.append(summary)
+        Cost.append(cost)
+        Tax.append(tax)
+        Tip.append(tip)
+        Uid.append(uid)
+        # the list contains the properties or orders
+        comb_list = Date + FinalPrice +  Items +Status + StringDate + Summary + Cost + Tax + Tip + Uid 
+    
     context={
-        "orders": orders,
+        "comb_list": comb_list,
     }
-    return render (request, "order.html",context)
+
+    return render (request, "order.html", context)
     
 
 def Food_Add(request):
@@ -73,8 +163,3 @@ def Food_Add(request):
         form = DishAddForm()
 
     return render(request, 'food_add.html', {'form': form})
-
-
-
-def  Order (request):
-    return render (request, "order.html")

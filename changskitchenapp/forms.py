@@ -26,16 +26,16 @@ db = firebase.database()
     #db.push(data)
 
 class DishAddForm(forms.Form):
-    descrption= forms.CharField(max_length=1000)
+    description= forms.CharField(max_length=1000)
     name= forms.CharField(max_length=1000)
     price= forms.FloatField()
     
     def clean(self):
         cleaned_data = super(DishAddForm, self).clean()
-        descrption = cleaned_data.get('descrption')
+        description = cleaned_data.get('description')
         name = cleaned_data.get('name')
         price = cleaned_data.get('price')
-        if not descrption and not name and not price:
+        if not description and not name and not price:
             raise forms.ValidationError('You have to write something!')
-        data = {"descrption":descrption,"name": name,"price": price}
+        data = {"description":description,"name": name,"price": price}
         db.child('dishes').push(data)
