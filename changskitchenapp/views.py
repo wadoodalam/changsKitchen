@@ -105,16 +105,6 @@ def  Order (request):
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
-    Date = [] 
-    FinalPrice = []
-    Items = []
-    Status = []
-    StringDate = []
-    Summary = []
-    Cost = []
-    Tax = []
-    Tip = []
-    Uid = []
     for i in orderslist:
 
         date = db.child('orders').child(i).child('date').get().val()
@@ -128,18 +118,19 @@ def  Order (request):
         tip = str(db.child('orders').child(i).child('tip').get().val())
         uid = db.child('orders').child(i).child('uid').get().val()
 
-        Date.append(date)
-        FinalPrice.append(finalPrice)
-        Items.append(items)
-        Status.append(status)
-        StringDate.append(stringDate)
-        Summary.append(summary)
-        Cost.append(cost)
-        Tax.append(tax)
-        Tip.append(tip)
-        Uid.append(uid)
-        # the list contains the properties or orders
-        comb_list = Date + FinalPrice +  Items +Status + StringDate + Summary + Cost + Tax + Tip + Uid 
+        order = {
+            "date": date,
+            "finalPrice": finalPrice,
+            "items": items,
+            "status": status,
+            "stringDate": stringDate,
+            "summary": summary,
+            "cost": cost,
+            "tax": tax,
+            "tip": tip,
+            "uid": uid
+        }
+        comb_list.append(order)
     
     context={
         "comb_list": comb_list,
