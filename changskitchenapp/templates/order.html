@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -19,6 +20,7 @@
                         <li><a href="/menu">MENU</a></li>
                         <li><a href="/food">FOOD</a></li>
                         <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
                     </ul>
                 </div>
                 <div class="intro_text">
@@ -27,28 +29,41 @@
                 </div>
             </div>
 
-            <ul class="subtitle0">
-                <div>
-                    <h2>Today's Order</h2>
-                </div>
-                <div class="manage"><a href="order_history.html">History</a></div>
-            </ul>
-
-
-            <!--footer>
-                <div>
-                    LOGO
-                </div>
-                <div>
-                    Chang's Kitchen
-                    <br> Address: Beloit WI
-                    <br> 1-222-333-4444
-                    <br> Copyright &copy;2021 Chang's Kitchen
-                    <br> changskitchen@gmail.com
-                </div>
-            </footer-->
 
 
         </div>
+        <div class="datatable" id="tableContainer">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Final Price</th>
+                    <th>Item</th>
+                    <th>Status </th>
+                    <th>String Data</th>
+                    <th>Summary</th>
+                    <th>Summary Price</th>
+                    <th>Tax</th>
+                    <th>Tip</th>
+                    <th>User Id</th>
+                </tr>
+
+                
+                <tr>
+                {% for instance in orders %}
+                    <td>{{instance.date}}</td>
+                    <td>{{instance.finalPrice}}</td>
+                    <td>{{instance.items}}</td>
+                    <td>{{instance.status}}</td>
+                    <td>{{instance.stringDate}}</td>
+                    <td>{{instance.summary}}</td>
+                    <td>{{instance.cost}}</td>
+                    <td>{{instance.tax}}</td>
+                    <td>{{instance.tip}}</td>
+                    <td>{{instance.uid}}</td>
+                {% endfor %}
+                </tr>
+                
+            </table>
+        
     </body>
 </html>

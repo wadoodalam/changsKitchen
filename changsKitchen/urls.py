@@ -25,5 +25,6 @@ urlpatterns = [
     path('menu/', views.Menu, name='menu'),
     path('food/', views.Food, name='food'),
     path('order/', views.Order, name='order'),
+    path('users/', views.Users, name='users'),
     path('food_add/', views.Food_Add, name='food_add'),
 ]

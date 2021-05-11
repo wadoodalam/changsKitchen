@@ -1,0 +1,59 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="intro_bg3">
+                <div class="header">
+                    <div class="search_area">
+                        <form>
+                            <input type="search" placeholder="Search">
+                            <span>Search</span>
+                        </form>
+                    </div>
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">ORDER</a></li>
+                    </ul>
+                </div>
+                <div class="intro_text">
+                    <h1>Order</h1>
+                    <h4 class ="contents1"></h4>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="datatable" id="tableContainer">
+            <table>
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Password</th>
+                    <th>Phone </th>
+                    <th>User ID</th>
+                </tr>
+
+                
+                <tr>
+                {% for instance in users %}
+                    <td>{{instance.email}}</td>
+                    <td>{{instance.name}}</td>
+                    <td>{{instance.password}}</td>
+                    <td>{{instance.phone}}</td>
+                    <td>{{instance.uid}}</td>
+                {% endfor %}
+                </tr>
+                
+            </table>
+        
+    </body>
+</html>

@@ -19,6 +19,7 @@
                         <li><a href="/menu">MENU</a></li>
                         <li><a href="/food">FOOD</a></li>
                         <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
                     </ul>
                 </div>
                 <div class="intro_text">
@@ -27,7 +28,27 @@
                 </div>
             </div>
 
-        <!-- Add a table to display all the dishes-->            
+
+
+        <!-- Add a table to display all the dishes-->  
+        <div class="datatable" id="tableContainer">
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+
+                
+                <tr>
+                {% for instance in dishes %}
+                    <td>{{instance.descrption}}</td>
+                    <td>{{instance.name}}</td>
+                    <td>{{instance.price}}</td>
+                {% endfor %}
+                </tr>
+                
+            </table>          
 
             <ul class="subtitle0">
                 <div>
