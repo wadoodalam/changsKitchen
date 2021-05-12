@@ -1,0 +1,51 @@
+{% load static %}
+<html lang="en">
+<head>
+	<title>User's List</title>
+	<link rel='stylesheet' href="{% static '/css/style.css' %}">
+</head>
+<body>
+	<div class="tm-container">
+		<div class="tm-main-content">
+			<section class="tm-section tm-section-small text-center">
+			<!--Showng all the details we retrieved Here-->
+			<div class="datatable" id="tableContainer">
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Final Price</th>
+                        <th>Item</th>
+                        <th>Status </th>
+                        <th>String Data</th>
+                        <th>Summary</th>
+                        <th>Summary Price</th>
+                        <th>Tax</th>
+                        <th>Tip</th>
+                        <th>User Id</th>
+                    </tr>
+    
+                    {% for order in comb_list %}
+    
+                    <tr>
+                        <td>{{order.date}}</td>
+                        <td>{{order.finalPrice}}</td>
+                        <td>{{order.items}}</td>
+                        <td>{{order.status}}</td>
+                        <td>{{order.stringDate}}</td>
+                        <td>{{order.summary}}</td>
+                        <td>{{order.cost}}</td>
+                        <td>{{order.tax}}</td>
+                        <td>{{order.tip}}</td>
+                        <td>{{order.uid}}</td>
+                    </tr>
+    
+                    {% endfor %}
+                    
+                </table>
+     
+			</section>
+		</div>
+		<br>
+	</div>
+</body>
+</html>
