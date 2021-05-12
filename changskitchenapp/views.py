@@ -76,7 +76,7 @@ def  Food (request):
 
         description = db.child('dishes').child(i).child('description').get().val()
         name = db.child('dishes').child(i).child('name').get().val()
-        price = str(db.child('dishes').child(i).child('price').get().val())
+        price = "{:10.2f}".format(db.child('dishes').child(i).child('price').get().val())
         
         food = {
             "description": description,
@@ -104,13 +104,13 @@ def  Order (request):
     for i in orderslist:
 
         date = db.child('orders').child(i).child('date').get().val()
-        finalPrice = str(db.child('orders').child(i).child('finalPrice').get().val())
         items = ConvertToString(db.child('orders').child(i).child('items').get().val())
         status = db.child('orders').child(i).child('status').get().val()
         stringDate = db.child('orders').child(i).child('stringDate').get().val()
         cost = str(db.child('orders').child(i).child('summaryPrice').get().val())
-        tax = str(db.child('orders').child(i).child('tax').get().val())
-        tip = str(db.child('orders').child(i).child('tip').get().val())
+        tax = "{:10.2f}".format(db.child('orders').child(i).child('tax').get().val())
+        tip = "{:10.2f}".format(db.child('orders').child(i).child('tip').get().val())
+        finalPrice = "{:10.2f}".format(db.child('orders').child(i).child('finalPrice').get().val())
         uid = db.child('orders').child(i).child('uid').get().val()
 
         order = {
