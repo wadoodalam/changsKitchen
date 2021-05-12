@@ -36,29 +36,25 @@
             <table>
                 <tr>
                     <th>Date</th>
-                    <th>Final Price</th>
-                    <th>Item</th>
+                    <th>Items</th>
                     <th>Status </th>
-                    <th>String Data</th>
-                    <th>Summary</th>
-                    <th>Summary Price</th>
+                    <th>Price</th>
                     <th>Tax</th>
                     <th>Tip</th>
-                    <th>User Id</th>
+                    <th>Final Price</th>
+                    <th>User</th>
                 </tr>
 
                 {% for order in comb_list %}
 
                 <tr>
-                    <td>{{order.date}}</td>
-                    <td>{{order.finalPrice}}</td>
+                    <td>{{order.stringDate}}</td>
                     <td>{{order.items}}</td>
                     <td>{{order.status}}</td>
-                    <td>{{order.stringDate}}</td>
-                    <td>{{order.summary}}</td>
                     <td>{{order.cost}}</td>
                     <td>{{order.tax}}</td>
                     <td>{{order.tip}}</td>
+                    <td>{{order.finalPrice}}</td>
                     <td>{{order.uid}}</td>
                 </tr>
 
