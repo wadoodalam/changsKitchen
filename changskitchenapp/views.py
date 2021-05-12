@@ -90,6 +90,8 @@ def  Food (request):
     context={
         "comb_list": comb_list,
     }
+
+
     return render (request, "food.html", context)
 
 def  Order (request):
@@ -152,7 +154,9 @@ def Food_Add(request):
 def Search (request):
     return render (request, "search.html")
 
-def Searchusers(request):
+
+
+def Searchresults(request):
     value = request.POST.get('search')
       
     # if no value is given then render to search.h6tml
