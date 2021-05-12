@@ -47,6 +47,13 @@
                 
             </table>          
 
+			<form method="post" action="">
+				{% csrf_token %}
+				<!--Type the name you want to search and click on submit-->
+				<input type="text" placeholder="Enter Dish name to delete"  name="delete" id="delete">
+                <input type="submit" value="Delete">
+            </form>
+
             <ul class="subtitle0">
                 <div>
                     <h2>All Dishes</h2>
