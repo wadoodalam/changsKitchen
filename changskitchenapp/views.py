@@ -76,7 +76,7 @@ def  Food (request):
 
         description = db.child('dishes').child(i).child('description').get().val()
         name = db.child('dishes').child(i).child('name').get().val()
-        price = str(db.child('dishes').child(i).child('price').get().val())
+        price = "{:10.2f}".format(db.child('dishes').child(i).child('price').get().val())
         
         food = {
             "description": description,
@@ -120,14 +120,13 @@ def  Order (request):
     for i in orderslist:
 
         date = db.child('orders').child(i).child('date').get().val()
-        finalPrice = str(db.child('orders').child(i).child('finalPrice').get().val())
-        items = db.child('orders').child(i).child('items').get().val()
+        items = ConvertToString(db.child('orders').child(i).child('items').get().val())
         status = db.child('orders').child(i).child('status').get().val()
         stringDate = db.child('orders').child(i).child('stringDate').get().val()
-        summary = db.child('orders').child(i).child('summary').get().val()
-        cost = str(db.child('orders').child(i).child('cost').get().val())
-        tax = str(db.child('orders').child(i).child('tax').get().val())
-        tip = str(db.child('orders').child(i).child('tip').get().val())
+        cost = str(db.child('orders').child(i).child('summaryPrice').get().val())
+        tax = "{:10.2f}".format(db.child('orders').child(i).child('tax').get().val())
+        tip = "{:10.2f}".format(db.child('orders').child(i).child('tip').get().val())
+        finalPrice = "{:10.2f}".format(db.child('orders').child(i).child('finalPrice').get().val())
         uid = db.child('orders').child(i).child('uid').get().val()
 
         order = {
@@ -136,7 +135,6 @@ def  Order (request):
             "items": items,
             "status": status,
             "stringDate": stringDate,
-            "summary": summary,
             "cost": cost,
             "tax": tax,
             "tip": tip,
@@ -152,6 +150,11 @@ def  Order (request):
 
     return render (request, "order.html", context)
     
+def ConvertToString(items):
+    result = ""
+    for i in items:
+        result += str(str(i["quantity"]) + " " + i["name"] + "; ")
+    return result[0:-2]
 
 def Food_Add(request):
     # if this is a POST request we need to process the form data

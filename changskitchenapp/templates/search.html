@@ -4,35 +4,41 @@
 	<title>Search Page</title>
 	<link rel="stylesheet" type="text/css" href="{%static '/css/style.css' %}">
 </head>
-<body>
-	<div class="container">
-		<div class="header">
+	<body>
+		<div class="wrap">
+            <div class="intro_bg">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                    </ul>
+                </div>
+                <div class="intro_text">
+                    <h1>Search</h1>
+                    <!--h4 class ="contents1">Local Restaurant in Vietnam</h4-->
+                </div>
+            </div>
+
+			<div class="inner">
+				<form method="post" action="/searchusers/">
+				{% csrf_token %}
+				<!--Type the name you want to search and click on submit-->
+				<input type="text" placeholder="Enter Title..." aria-label="Search.." name="search"
+					id="search">
+				<select name="category" id="category" name="">
+					<option value="">Select Category</option>
+					<!--select type to user-->
+					<option value="Users">Users</option>
+					<option value="Dishes">Dishes</option>
+					<option value="Orders">Orders</option>
+				</select>
+				<input type="submit" value="Find">
+				</form>
+			</div>
 		</div>
-		<ul class="nav">
-			<li><a href="/home">HOME</a></li>
-			<li><a href="/menu">MENU</a></li>
-			<li><a href="/food">FOOD</a></li>
-			<li><a href="/order">ORDER</a></li>
-			<li><a href="/users">USERS</a></li>
-			<li><a href="/search">SEARCH</a></li>
-		</ul>
-	</div>
-		<div class="inner">
-			<form method="post" action="/searchusers/">
-			{% csrf_token %}
-			<!--Type the name you want to search and click on submit-->
-			<input type="text" placeholder="Enter Title..." aria-label="Search.." name="search"
-				id="search">
-			<select name="category" id="category" name="">
-				<option value="">Select Category</option>
-				<!--select type to user-->
-				<option value="Users">Users</option>
-				<option value="Dishes">Dishes</option>
-				<option value="Orders">Orders</option>
-			</select>
-			<input type="submit" value="Find">
-			</form>
-		</div>
-	</div>
-</body>
+	</body>
 </html>

@@ -7,9 +7,8 @@
     </head>
     <body>
         <div class="wrap">
-            <div class="intro_bg3">
+            <div class="intro_bg4">
                 <div class="header">
-                    </div>
                     <ul class="nav">
                         <li><a href="/home">HOME</a></li>
                         <li><a href="/menu">MENU</a></li>
@@ -30,18 +29,16 @@
         </div>
         <div class="datatable" id="tableContainer">
             <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Phone </th>
-                    <th>User ID</th>
-                </tr>
-
+                <div class ="category">
+                    <li>Name</li>
+                    <li>Email</li>
+                    <li>Password</li>
+                    <li>Phone</li>
+                    <li>User ID</li>
+                </div>
                 
                 {% for user in comb_list %}
-
-                <tr>
+                <tr class = "table_users">
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.password}}</td>

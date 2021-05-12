@@ -24,44 +24,47 @@
                 </div>
             </div>
 
-
+        
 
         <div class="datatable" id="tableContainer">
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                </tr>
+            
+            <!--ul class="subtitle0">
+                <div><h2>All Dishes</h2></div>
+                <div class="manage"><a href="/food_add">Add Dishes</a></div>
+            </ul-->
+            
+            <div class ="category">
+                <li>Food Name</li>
+                <li>Description</li>
+                <li>Price</li>
+                <li><div class="manage"><a href="/food_add">Add Dishes</a></div></li>
+            </div>
 
+            
+            <table >
 
                 {% for food in comb_list %}
 
-                <tr>
+                <tr class = "table_food" >
                     <td>{{food.name}}</td>
                     <td>{{food.description}}</td>
                     <td>{{food.price}}</td>
+                    <td><input type="submit" value="Delete"></td>
                 </tr>
 
                 {% endfor %}
                 
             </table>        
 
-
-            <ul class="subtitle0">
-                <div>
-                    <h2>All Dishes</h2>
-                </div>
-                <div class="manage"><a href="/food_add">Add Dishes</a></div>
-            </ul>
-
             
+			<!--form method="post" action="">
+				{% csrf_token %}
+				<!--Type the name you want to search and click on submit-->
+				<!--input type="text" placeholder="Enter Dish name to delete"  name="delete" id="delete">
+                <input type="submit" value="Delete">
+            </form-->
 
         </div>
-        <form name = "del" method="POST" action="">
-            {% csrf_token %}
-            <input type="text" placeholder="Enter dish to delete" name="delete" id="delete">
-            <input type="submit" value="Delete">
-        </form>  
+
     </body>
 </html>
