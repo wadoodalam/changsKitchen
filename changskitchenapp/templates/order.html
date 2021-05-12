@@ -29,20 +29,21 @@
         </div>
         <div class="datatable" id="tableContainer">
             <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Items</th>
-                    <th>Status </th>
-                    <th>Price</th>
-                    <th>Tax</th>
-                    <th>Tip</th>
-                    <th>Final Price</th>
-                    <th>User</th>
-                </tr>
+
+                <div class ="category_order">
+                    <li>Date</li>
+                    <li>Items</li>
+                    <li>Status</li>
+                    <li>Price</li>
+                    <li>Tax</li>
+                    <li>Tip</li>
+                    <li>Final Price</li>
+                    <li>User</li>
+                </div>
 
                 {% for order in comb_list %}
 
-                <tr>
+                <tr class = "table_order">
                     <td>{{order.stringDate}}</td>
                     <td>{{order.items}}</td>
                     <td>{{order.status}}</td>
