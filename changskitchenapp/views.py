@@ -86,18 +86,34 @@ def  Food (request):
         # the list contains the description, name and price of all dishes.
         # example output for comb_list = [None, None, 'none1', 'chicken 65', '0.0', '12.0']
         comb_list.append(food)
-    
-    context={
+        context={
         "comb_list": comb_list,
     }
-
-
+    # cattempted code for deletion
+      #  val_delete = request.POST.get('delete',False)
+       # comb_list = []
+       # data = db.child('dishes').shallow().get().val()
+       # uidlist = []
+       # requid = []
+        #for i in data:
+        #    uidlist.append(i)
+        #for i in uidlist:
+         #   val = db.child('dishes').child(i).child('name').get().val()
+          #  val=val.lower()
+           # if (val == val_delete):
+            #    requid.append(i)
+        
+        #db.child('dishes').child(requid).remove()
     return render (request, "food.html", context)
 
 def  Order (request):
+
+
+
     data = db.child('orders').shallow().get().val()
     orderslist = []
     comb_list = []
+    val_delete = 'null'
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
@@ -128,9 +144,11 @@ def  Order (request):
         }
         comb_list.append(order)
     
+
     context={
         "comb_list": comb_list,
     }
+
 
     return render (request, "order.html", context)
     
