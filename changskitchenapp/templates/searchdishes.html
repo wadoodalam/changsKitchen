@@ -1,48 +1,55 @@
 {% load static %}
+{% load static %}
 <html lang="en">
 <head>
-	<title>User's List</title>
-	<link rel='stylesheet' href="{% static '/css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{%static '/css/style.css' %}">
 </head>
-<body>
-	<div class="tm-container">
-		<div class="header">
-		</div>
-		<ul class="nav">
-			<li><a href="/home">HOME</a></li>
-			<li><a href="/menu">MENU</a></li>
-			<li><a href="/food">FOOD</a></li>
-			<li><a href="/order">ORDER</a></li>
-			<li><a href="/users">USERS</a></li>
-			<li><a href="/search">SEARCH</a></li>
-		</ul>
-	</div>
-		<div class="tm-main-content">
-			<section class="tm-section tm-section-small text-center">
-			<!--Showng all the details we retrieved Here-->
-			<div class="datatable" id="tableContainer">
-				<table>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-						<th>Price</th>
-					</tr>
-					
-					
-					{% for food in comb_list %}
-	
-					<tr>
-						<td>{{food.name}}</td>
-						<td>{{food.description}}</td>
-						<td>{{food.price}}</td>
-					</tr>
+	<body>
+		<div class="wrap">
+            <div class="intro_bg">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                    </ul>
+                </div>
+				<div class="intro_text">
+                    <h1>Dish List</h1>
+                    <!--h4 class ="contents1">Local Restaurant in Vietnam</h4-->
+                </div>
+			</div>
 
-					{% endfor %}
-					
-				</table>    
-			</section>
+			<div class="tm-main-content">
+				<section class="tm-section tm-section-small text-center">
+				<!--Showng all the details we retrieved Here-->
+					<div class="datatable" id="tableContainer">
+						<table>
+							<div class ="category">
+								<li>Food Name</li>
+								<li>Description</li>
+								<li>Price</li>
+							</div>
+							
+							
+							{% for food in comb_list %}
+			
+							<tr class = "table_food">
+								<td>{{food.name}}</td>
+								<td>{{food.description}}</td>
+								<td>{{food.price}}</td>
+							</tr>
+
+							{% endfor %}
+
+						</table>    
+					</div>
+				</section>
+			</div>
 		</div>
-		<br>
-	</div>
-</body>
+	</body>
 </html>

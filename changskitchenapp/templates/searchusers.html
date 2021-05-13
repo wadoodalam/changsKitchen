@@ -1,48 +1,51 @@
 {% load static %}
 <html lang="en">
-<head>
-	<title>User's List</title>
-	<link rel='stylesheet' href="{% static '/css/style.css' %}">
-</head>
-<body>
-	<div class="tm-container">
-        <div class="header">
-        </div>
-        <ul class="nav">
-            <li><a href="/home">HOME</a></li>
-            <li><a href="/menu">MENU</a></li>
-            <li><a href="/food">FOOD</a></li>
-            <li><a href="/order">ORDER</a></li>
-            <li><a href="/users">USERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-        </ul>
-    </div>
-		<div class="tm-main-content">
-			<table>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Phone </th>
-                    <th>User ID</th>
-                </tr>
-
-                
-                {% for user in comb_list %}
-
-                <tr>
-                    <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.password}}</td>
-                    <td>{{user.phone}}</td>
-                    <td>{{user.uid}}</td>
-                </tr>
-
-                {% endfor %}
-                
-            </table>
-		</div>
-		<br>
-	</div>
-</body>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="intro_bg4">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                    </ul>
+                </div>
+                <div class="intro_text">
+                    <h1>User's List</h1>
+                    <h4 class ="contents1"></h4>
+                </div>
+            </div>
+            <div class="tm-main-content">
+                <div class="datatable" id="tableContainer">
+                    <table>
+                        <div class ="category">
+                            <li>Name</li>
+                            <li>Email</li>
+                            <li>Password</li>
+                            <li>Phone</li>
+                            <li>User ID</li>
+                        </div>
+                        
+                        {% for user in comb_list %}
+                        <tr class = "table_users">
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.password}}</td>
+                            <td>{{user.phone}}</td>
+                            <td>{{user.uid}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </table>
+                </div>
+            </div>
+	    </div>
+    </body>
 </html>
