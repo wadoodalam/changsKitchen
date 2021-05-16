@@ -207,7 +207,7 @@ def Searchresults(request):
                 val2 = db.child('users').child(i).child('phone').get().val()
                 val=val.lower()
                 val1=val1.lower()
-                val2=val2.lower()
+                #val2=val2.lower()
                 value=value.lower()
                 # if uid we want is value then
                 # we will store that in requid
