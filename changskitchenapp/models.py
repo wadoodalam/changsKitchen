@@ -16,23 +16,24 @@ firebaseConfig = {
     }
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
-Description = [] 
-Name = []
-Price = []
-comb_list = []
-data = db.child('dishes').shallow().get().val()
-dish_list = []
-for i in data:
-    dish_list.append(i)
 
-for i in dish_list:
-    description = db.child('dishes').child(i).child('descrption').get().val()
-    Description.append(description)
-    name = db.child('dishes').child(i).child('name').get().val()
-    Name.append(name)
-    price = str(db.child('dishes').child(i).child('price').get().val())
-    Price.append(price)
-    comb_list = Description+Name+Price
-    
+valueToDelete = 'def'
+
+data = db.child('dishes').shallow().get().val()
+uidlist = []
+flag = False
+for i in data:
+    uidlist.append(i)
+
+for i in uidlist:
+    val_del = db.child('dishes').child(i).child('name').get().val()
+    val_del = val_del.lower()
+    valueToDelete = valueToDelete.lower()
+    if (valueToDelete == val_del):
+        requ_del_id = i
+        flag = True
+    if flag:
+        db.child('dishes').child(requ_del_id).remove()
+
 
 

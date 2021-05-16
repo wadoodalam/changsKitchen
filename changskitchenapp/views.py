@@ -83,28 +83,36 @@ def  Food (request):
             "name": name,
             "price": price
         }
-        # the list contains the description, name and price of all dishes.
-        # example output for comb_list = [None, None, 'none1', 'chicken 65', '0.0', '12.0']
         comb_list.append(food)
         context={
         "comb_list": comb_list,
     }
-    # cattempted code for deletion
-      #  val_delete = request.POST.get('delete',False)
-       # comb_list = []
-       # data = db.child('dishes').shallow().get().val()
-       # uidlist = []
-       # requid = []
-        #for i in data:
-        #    uidlist.append(i)
-        #for i in uidlist:
-         #   val = db.child('dishes').child(i).child('name').get().val()
-          #  val=val.lower()
-           # if (val == val_delete):
-            #    requid.append(i)
-        
-        #db.child('dishes').child(requid).remove()
     return render (request, "food.html", context)
+
+
+def Food_Delete(request):
+    valueToDelete = request.POST.get('delete')
+    if valueToDelete is None or valueToDelete =="":
+        return render(request, "food_delete.html")
+
+    data = db.child('dishes').shallow().get().val()
+    uidlist = []
+    flag = False
+    for i in data:
+        uidlist.append(i)
+    for i in uidlist:
+        val_del = db.child('dishes').child(i).child('name').get().val()
+        val_del = val_del.lower()
+        valueToDelete = valueToDelete.lower()
+        if (valueToDelete == val_del):
+            requ_del_id = i
+            flag = True
+        if flag:
+            # query to delete that child
+            db.child('dishes').child(requ_del_id).remove()
+            return redirect('/food')
+    return render (request, "food_delete.html")
+
 
 def  Order (request):
 
@@ -179,10 +187,9 @@ def Search (request):
 
 def Searchresults(request):
     value = request.POST.get('search')
-      
-    # if no value is given then render to search.h6tml
     if value =="":
         return render(request, "search.html")
+
     title = request.POST['category']
     if title =="":
         return render(request, "search.html")
@@ -234,17 +241,14 @@ def Searchresults(request):
             # send all data in zip form to searchusers.html
             return render(request, "searchusers.html", {"comb_list": comb_list})
         elif title == "Dishes":
+
             comb_list = []
             data = db.child('dishes').shallow().get().val()
             uidlist = []
             requid = []
-              
-            # append all the id in uidlist
             for i in data:
                 uidlist.append(i)
-                  
-            # if we have find all the uid then
-            # we will look for the one we need    
+
             for i in uidlist:
                 val = db.child('dishes').child(i).child('name').get().val()
                 val1 = db.child('dishes').child(i).child('description').get().val()
@@ -253,16 +257,12 @@ def Searchresults(request):
                 val1=val1.lower()
                 val2=val2.lower()
                 value=value.lower()
-                # if uid we want is value then
-                # we will store that in requid
                 if (val == value or val1 == value or val2 == value):
                     requid.append(i)
             print(requid)
             if requid=='null':
                 return render(request, "search.html")
-            print(requid)
-              
-            # then we will retrieve all the data related to that uid
+            
             for requid in requid:
                 name = db.child('dishes').child(requid).child('name').get().val()
                 description = db.child('dishes').child(requid).child('description').get().val()
@@ -274,8 +274,7 @@ def Searchresults(request):
                     "price": price
                 }
                 comb_list.append(dishes)
-              
-            # send all data in zip form to searchusers.html
+
             return render(request, "searchdishes.html", {"comb_list": comb_list})
         elif title == "Orders":
             comb_list = []
@@ -315,8 +314,8 @@ def Searchresults(request):
                 value=value.lower()
                 # if uid we want is value then
                 # we will store that in requid
-                if (val == value or val1 == value or val2 == value or val3 == value or val4 == value or val5 == value or val6 == value or val7 == value or val8 == value or val9 == value):
-                    requid.append(i)
+            if (val == value or val1 == value or val2 == value or val3 == value or val4 == value or val5 == value or val6 == value or val7 == value or val8 == value or val9 == value):
+                requid.append(i)
             print(requid)
             if requid=='null':
                 return render(request, "search.html")
