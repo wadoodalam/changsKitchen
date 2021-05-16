@@ -53,9 +53,13 @@ class MenuAddForm(forms.Form):
         cleaned_data = super(MenuAddForm, self).clean()
         date = str(cleaned_data.get('date'))
         day = cleaned_data.get('day')
-        dishes = str(cleaned_data.get('dishes'))
+        dishes = ['-M_RzBIJQ4u7p9Vi34Qd','-M_SnIq_1ByOe4Tei3qi']
         # the date can be null and the message This field is required is still displayed on the front end. Needs fixing
         if not date or not day or not dishes:
             raise forms.ValidationError('You have to write something!')
-        data = {"date":date,"day": day,"dishes": dishes}
-        db.child('menus').push(data)
+        data = {"date":date,"day": day}
+        db.child('menus').child(date).set(data)
+        i = 0
+        for dish in dishes:
+            db.child('menus').child(date).child('dishes').child(i).set(dish)
+            i += 1
