@@ -16,14 +16,13 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
 
-#class FoodAdd():
- #   description = Food_Add.descrption
-    
+# please write the code for 
 
-# name = DishAddForm.clean.name
-   # price = DishAddForm.price.clean.price
-   # data = {"description":description,"name": name,"price": price}
-    #db.push(data)
+def ConvertToString(items):
+    result = ""
+    for i in items:
+        result += str(str(i["quantity"]) + " " + i["name"] + "; ")
+    return result[0:-2]
 
 class DishAddForm(forms.Form):
     description= forms.CharField(max_length=1000)
@@ -35,7 +34,28 @@ class DishAddForm(forms.Form):
         description = cleaned_data.get('description')
         name = cleaned_data.get('name')
         price = cleaned_data.get('price')
-        if not description and not name and not price:
+        if not description or not name or not price:
             raise forms.ValidationError('You have to write something!')
         data = {"description":description,"name": name,"price": price}
         db.child('dishes').push(data)
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class MenuAddForm(forms.Form):
+
+    date= forms.DateField( widget=DateInput)
+    day= forms.CharField(max_length=1000)
+    # the field that displays all the dish choices
+        #dishes = forms.ChoiceField(label='Dish', choices=comb_list)
+    
+    def clean(self):
+        cleaned_data = super(MenuAddForm, self).clean()
+        date = str(cleaned_data.get('date'))
+        day = cleaned_data.get('day')
+        dishes = str(cleaned_data.get('dishes'))
+        # the date can be null and the message This field is required is still displayed on the front end. Needs fixing
+        if not date or not day or not dishes:
+            raise forms.ValidationError('You have to write something!')
+        data = {"date":date,"day": day,"dishes": dishes}
+        db.child('menus').push(data)

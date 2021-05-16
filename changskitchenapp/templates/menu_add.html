@@ -7,54 +7,29 @@
     </head>
     <body>
         <div class="wrap">
-            <div class="intro_bg1">
+            <div class="intro_bg2">
                 <div class="header">
                     <ul class="nav">
                         <li><a href="/home">HOME</a></li>
                         <li><a href="/menu">MENU</a></li>
                         <li><a href="/food">FOOD</a></li>
                         <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
                         <li><a href="/search">SEARCH</a></li>
                     </ul>
                 </div>
                 <div class="intro_text">
-                    <h1>Add Today's Menu</h1>
+                    <h1>Add New Menu</h1>
                     <h4 class ="contents1"></h4>
                 </div>
             </div>
 
-            
 
-            <ul class="subtitle0">
-                <div>Main Dish 1</div>
-                <div class="manage"><a href=#>Add</a></div>
-            </ul>
-
-            <ul class="subtitle0">
-                <div>Main Dish 2</div>
-                <div class="manage"><a href=#>Add</a></div>
-            </ul>
-
-            <ul class="subtitle0">
-                <div>Coke</div>
-                <div class="manage"><a href=#>Add</a></div>
-            </ul>
-
-            
-
-
-            <!--footer>
-                <div>
-                    LOGO
-                </div>
-                <div>
-                    Chang's Kitchen
-                    <br> Address: Beloit WI
-                    <br> 1-222-333-4444
-                    <br> Copyright &copy;2021 Chang's Kitchen
-                    <br> changskitchen@gmail.com
-                </div>
-            </footer-->
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Submit</button>
+            </form>
 
 
         </div>

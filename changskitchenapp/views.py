@@ -2,8 +2,9 @@ from django.shortcuts import (get_object_or_404,  render,  HttpResponseRedirect,
 from django.views.generic import UpdateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .forms import DishAddForm
+from .forms import DishAddForm, MenuAddForm
 import pyrebase
+import json
 
 firebaseConfig = {
     "apiKey": "AIzaSyBTvrZE_ZCXQfCzreRzyxb06OL3cqsx_gE",
@@ -56,13 +57,40 @@ def  Users (request):
     return render (request, "users.html",context)
 
 def  Menu (request):
-    return render (request, "menu.html")
+    data = db.child('menus').shallow().get().val()
+    orderslist = []
+    comb_list = []
+    # append all the id in uidlist
+    for i in data:
+        orderslist.append(i)
+    for i in orderslist:
+
+        date = str(db.child('menus').child(i).child('date').get().val())
+        day = db.child('menus').child(i).child('day').get().val()
+        dishes = str(db.child('menus').child(i).child('dishes').get().val())
+        
+        food = {
+            "date": date,
+            "day": day,
+            "dishes": dishes
+        }
+        comb_list.append(food)
+        context={
+        "comb_list": comb_list,
+        }
+    return render (request, "menu.html", context)
 
 def  Menu_Manage (request):
     return render (request, "menu_manage.html")
 
 def  Menu_Add (request):
-    return render (request, "menu_add.html")
+    if request.method == 'POST':
+        form = MenuAddForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/menu')
+    else:
+        form = MenuAddForm()
+    return render (request, "menu_add.html",{'form': form})
 
 
 def  Food (request):
@@ -115,9 +143,6 @@ def Food_Delete(request):
 
 
 def  Order (request):
-
-
-
     data = db.child('orders').shallow().get().val()
     orderslist = []
     comb_list = []
@@ -172,8 +197,6 @@ def Food_Add(request):
         # check whether it's valid:
         if form.is_valid():
             return HttpResponseRedirect('/food')
-            
-
     # if a GET (or any other method) we'll create a blank form
     else:
         form = DishAddForm()

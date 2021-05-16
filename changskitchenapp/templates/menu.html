@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="wrap">
-            <div class="intro_bg1">
+            <div class="intro_bg2">
                 <div class="header">
                     <ul class="nav">
                         <li><a href="/home">HOME</a></li>
@@ -24,26 +24,35 @@
                 </div>
             </div>
 
-            <ul class="subtitle0">
-                <div>
-                    <h2>Add Menu</h2>
-                </div>
-                <div class="manage"><a href="menu_add.html">Manage</a></div>
-            </ul>
+        
 
-            <ul class="subtitle0">
-                <div>
-                    <h2> Menu</h2>
-                </div>
-                <!--div class="manage"><a href="menu_add.html">Add</a></div-->
-            </ul>
+        <div class="datatable" id="tableContainer">
+            
+            
+            <div class ="category">
+                <li>Date</li>
+                <li>Day</li>
+                <li>Dishes</li>
+            </div>
 
+            
+            <table >
 
-            <!--footer>
-            Insert table, this is tricky    
-            </footer-->
+                {% for menu in comb_list %}
 
+                <tr class = "table_menu" >
+                    <td>{{menu.date}}</td>
+                    <td>{{menu.day}}</td>
+                    <td>{{menu.dish}}</td>
+                </tr>
 
+                {% endfor %}
+                
+            </table>        
+
+            <div class="add"><a href="/menu_add">Add Menu</a></div>
+            <div class="delete"><a href="/menu_delete">Delete Menu</a></div>
         </div>
+
     </body>
 </html>
