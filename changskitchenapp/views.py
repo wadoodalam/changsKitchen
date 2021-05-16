@@ -229,7 +229,8 @@ def Searchresults(request):
                     "phone": phone,
                     "uid": uid
                 }
-            comb_list.append(user)
+                comb_list.append(user)
+            
             # send all data in zip form to searchusers.html
             return render(request, "searchusers.html", {"comb_list": comb_list})
         elif title == "Dishes":
