@@ -1,61 +1,64 @@
 {% load static %}
 <html lang="en">
 <head>
-	<title>User's List</title>
-	<link rel='stylesheet' href="{% static '/css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{%static '/css/style.css' %}">
 </head>
-<body>
-	<div class="tm-container">
-        <div class="header">
-        </div>
-        <ul class="nav">
-            <li><a href="/home">HOME</a></li>
-            <li><a href="/menu">MENU</a></li>
-            <li><a href="/food">FOOD</a></li>
-            <li><a href="/order">ORDER</a></li>
-            <li><a href="/users">USERS</a></li>
-            <li><a href="/search">SEARCH</a></li>
-        </ul>
-    </div>
-		<div class="tm-main-content">
-			<section class="tm-section tm-section-small text-center">
-			<!--Showng all the details we retrieved Here-->
-			<div class="datatable" id="tableContainer">
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Final Price</th>
-                        <th>Item</th>
-                        <th>Status </th>
-                        <th>String Data</th>
-                        <th>Summary</th>
-                        <th>Summary Price</th>
-                        <th>Tax</th>
-                        <th>Tip</th>
-                        <th>User Id</th>
-                    </tr>
-    
-                    {% for order in comb_list %}
-    
-                    <tr>
-                        <td>{{order.date}}</td>
-                        <td>{{order.finalPrice}}</td>
-                        <td>{{order.items}}</td>
-                        <td>{{order.status}}</td>
-                        <td>{{order.stringDate}}</td>
-                        <td>{{order.summary}}</td>
-                        <td>{{order.cost}}</td>
-                        <td>{{order.tax}}</td>
-                        <td>{{order.tip}}</td>
-                        <td>{{order.uid}}</td>
-                    </tr>
-    
-                    {% endfor %}
-                    
-                </table>
-     
-			</section>
-		</div>
+	<body>
+		<div class="wrap">
+            <div class="intro_bg">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                    </ul>
+                </div>
+                <div class="intro_text">
+                    <h1>Order list</h1>
+                    <!--h4 class ="contents1">Local Restaurant in Vietnam</h4-->
+                </div>
+            </div>
+            <div class="tm-main-content">
+                <!--section class="tm-section tm-section-small text-center">
+                <!--Showng all the details we retrieved Here-->
+                    <div class="datatable" id="tableContainer">
+                        <table>
+                            <div class = "category_order">
+                                <li>Date</li>
+                                <li>Items</li>
+                                <li>Status </li>
+                                <li>Summary</li>
+                                <li>Price</li>
+                                <li>Tax</li>
+                                <li>Tip</li>
+                                <li>Final Price</li>
+                                <li>User Id</li>
+                            </div>
+            
+                            {% for order in comb_list %}
+            
+                            <tr class = "table_order">
+                                <td>{{order.stringDate}}</td>
+                                <td>{{order.items}}</td>
+                                <td>{{order.status}}</td>
+                                <td>{{order.summary}}</td>
+                                <td>{{order.cost}}</td>
+                                <td>{{order.tax}}</td>
+                                <td>{{order.tip}}</td>
+                                <td>{{order.finalPrice}}</td>                                
+                                <td>{{order.uid}}</td>
+                            </tr>
+            
+                            {% endfor %}
+                            
+                        </table>
+                    </div>
+                <!--/section-->
+            </div>
 		<br>
 	</div>
 </body>
