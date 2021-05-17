@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="intro_bg2">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                    </ul>
+                </div>
+                <div class="intro_text">
+                    <h1>Edit Dish</h1>
+                    <h4 class ="contents1"></h4>
+                </div>
+            </div>
+
+
+			<form method="post" action="">
+				{% csrf_token %}
+				<input type="text" placeholder="Enter Dish name to Edit"  name="edit" id="edit">
+                <input type="submit" value="edit">
+            </form>
+
+            <div>
+                <div class ="category">
+                    <li>Food Name</li>
+                    <li>Description</li>
+                    <li>Price</li>
+                </div>
+
+                
+                <table >
+
+                    {% for food in comb_list %}
+
+                    <tr class = "table_food" >
+                        <td>{{food.name}}</td>
+                        <td>{{food.description}}</td>
+                        <td>{{food.price}}</td>
+                    </tr>
+
+                    {% endfor %}
+                    
+                </table>  
+
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -39,6 +39,29 @@ class DishAddForm(forms.Form):
         data = {"description":description,"name": name,"price": price}
         db.child('dishes').push(data)
 
+class DishEditForm(forms.Form):
+    description= forms.CharField(max_length=1000)
+    name= forms.CharField(max_length=1000)
+    price= forms.FloatField()
+    
+    def clean(self):
+        cleaned_data = super(DishEditForm, self).clean()
+        description = cleaned_data.get('description')
+        name = cleaned_data.get('name')
+        price = cleaned_data.get('price')
+        if not description or not name or not price:
+            raise forms.ValidationError('You have to write something!')
+        #search the id by name
+        data = db.child('dishes').shallow().get().val()
+        uidlist = []
+        for i in data:
+            uidlist.append(i)
+        for i in uidlist:
+            nameToCheck = str(db.child('dishes').child(i).child('name').get().val())
+            nameToCheck = nameToCheck.lower()
+            if (name == nameToCheck):
+                requ_edit_id = i
+        db.child('dishes').child(requ_edit_id).update({"description":description,"name": name,"price": price})
 class DateInput(forms.DateInput):
     input_type = 'date'
 

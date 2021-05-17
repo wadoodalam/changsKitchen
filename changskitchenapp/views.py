@@ -1,8 +1,9 @@
 from django.shortcuts import (get_object_or_404,  render,  HttpResponseRedirect,)
 from django.views.generic import UpdateView
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .forms import DishAddForm, MenuAddForm
+from django.http import HttpResponse, request
+from pyasn1.type.univ import Null
+from .forms import DishAddForm, MenuAddForm, DishEditForm
 import pyrebase
 import json
 
@@ -129,7 +130,7 @@ def Food_Delete(request):
     for i in data:
         uidlist.append(i)
     for i in uidlist:
-        val_del = db.child('dishes').child(i).child('name').get().val()
+        val_del = str(db.child('dishes').child(i).child('name').get().val())
         val_del = val_del.lower()
         valueToDelete = valueToDelete.lower()
         if (valueToDelete == val_del):
@@ -141,6 +142,39 @@ def Food_Delete(request):
             return redirect('/food')
     return render (request, "food_delete.html")
 
+def Food_Edit(request):
+    valueToEdit = request.POST.get('edit')
+    if valueToEdit is None or valueToEdit =="":
+        return render(request, "food_edit.html")
+
+    data = db.child('dishes').shallow().get().val()
+    uidlist = []
+    comb_list = []
+    flag = False
+    for i in data:
+        uidlist.append(i)
+    for i in uidlist:
+        nameToCheck = str(db.child('dishes').child(i).child('name').get().val())
+        nameToCheck = nameToCheck.lower()
+        valueToEdit = valueToEdit.lower()
+        if (valueToEdit == nameToCheck):
+            requ_edit_id = i
+            #flag = True
+
+            name = str(db.child('dishes').child(requ_edit_id).child('name').get().val())
+            description = db.child('dishes').child(requ_edit_id).child('description').get().val()
+            price = str(db.child('dishes').child(requ_edit_id).child('price').get().val())
+
+            dishes  = {
+                "description": description,
+                "name": name,
+                "price": price
+            }
+            comb_list.append(dishes)
+    return render(request, 'food_edit.html', {"comb_list":comb_list})
+
+                    
+    
 
 def  Order (request):
     data = db.child('orders').shallow().get().val()
@@ -190,17 +224,12 @@ def ConvertToString(items):
     return result[0:-2]
 
 def Food_Add(request):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = DishAddForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             return HttpResponseRedirect('/food')
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = DishAddForm()
-
     return render(request, 'food_add.html', {'form': form})
 
 def Search (request):
@@ -273,8 +302,8 @@ def Searchresults(request):
                 uidlist.append(i)
 
             for i in uidlist:
-                val = db.child('dishes').child(i).child('name').get().val()
-                val1 = db.child('dishes').child(i).child('description').get().val()
+                val = db.child('dishes').child(i).child('description').get().val()
+                val1 = str(db.child('dishes').child(i).child('name').get().val())
                 val2 = str(db.child('dishes').child(i).child('price').get().val())
                 val=val.lower()
                 val1=val1.lower()

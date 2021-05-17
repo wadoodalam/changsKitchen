@@ -30,6 +30,7 @@ urlpatterns = [
     path('users/', views.Users, name='users'),
     path('food_add/', views.Food_Add, name='food_add'),
     path('food_delete/', views.Food_Delete, name='food_delete'),
+    path('food_edit/', views.Food_Edit, name='food_edit'),
     path('search/', views.Search, name ='search'),
     path('searchusers/', views.Searchresults, name = 'search_results'),
     
