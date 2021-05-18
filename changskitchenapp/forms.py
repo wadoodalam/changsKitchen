@@ -1,6 +1,7 @@
 from django import forms
 from django_select2 import forms as s2forms
 import pyrebase
+import logging
 
 firebaseConfig = {
     "apiKey": "AIzaSyBTvrZE_ZCXQfCzreRzyxb06OL3cqsx_gE",
@@ -13,27 +14,16 @@ firebaseConfig = {
     "measurementId": "G-19YSNEQ1MY"
     }
 
+logger = logging.getLogger(__name__)
+
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
-
-
-
-
-
 data = db.child('dishes').shallow().get().val()
-orderslist = []
-comb_list = []
-# fetch all the dish names
-for i in data:
-    orderslist.append(i)
-for i in orderslist:
-
-    name = db.child('dishes').child(i).child('name').get().val()
-    
-    food = {
-        "name": name,
-    }
-    comb_list.append(food)
+CURR_DISHES = []
+for entry in data:
+    name = db.child('dishes').child(entry).child('name').get().val()
+    CURR_DISHES.append((entry, name))
+logger.error(CURR_DISHES)
 
 class DishAddForm(forms.Form):
     description= forms.CharField(max_length=1000)
@@ -77,40 +67,27 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class MenuAddForm(forms.Form):
-    def ConvertToString(items):
-        result = ""
-        for i in items:
-            result += str(str(i["name"]) + "; ")
-        return result[0:-2]
-    
-    Dish_Choices = ConvertToString(comb_list)
-    date= forms.DateField( widget=DateInput)
 
-    # the field that displays all the dish choices
-    dishes = forms.ChoiceField(label='Dish', choices=Dish_Choices)
+    date= forms.DateField( widget=DateInput)
+    day= forms.CharField(max_length=1000)
+    dishes = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=CURR_DISHES
+    )
     
     def clean(self):
         cleaned_data = super(MenuAddForm, self).clean()
         date = str(cleaned_data.get('date'))
-
-        dishIDFromDBCoresspondingFromUser = []
-       
-        #list of dishes seleted from the user returned
-        dishNamesFromUser = []
-        dishNamesFromUser = str(cleaned_data.get('dishes'))
-
-        # this code fetches the dishes from db corresponding to name of the dish selected by the user
-        for i in orderslist:
-            dish_id = []
-            dish_id.append(db.child("dishes").child(i).order_by_child('name').equal_to(dishNamesFromUser).get())
-
-
+        day = cleaned_data.get('day')
+        dishes = cleaned_data.get('dishes')
+        logger.error(dishes)
         # the date can be null and the message This field is required is still displayed on the front end. Needs fixing
-        if not date or not dishNamesFromUser:
+        if not date or not day or not dishes:
             raise forms.ValidationError('You have to write something!')
-        data = {"date":date, "dish_id":dish_id}
+        data = {"date":date,"day": day}
         db.child('menus').child(date).set(data)
         i = 0
-        for dish in dishNamesFromUser:
+        for dish in dishes:
             db.child('menus').child(date).child('dishes').child(i).set(dish)
             i += 1
