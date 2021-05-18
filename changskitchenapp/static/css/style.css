@@ -169,9 +169,9 @@ h2{
 
 /* main_text0 */
 .main_text0{
-    margin-top: -132px;
+    margin-top: 0px;
     width: 100%;
-    height: 601px;
+    height: 760px;
     background: #f1f2f3;
 }
 
@@ -371,7 +371,7 @@ footer > div:last-child{
 }
 
 .food0 > div:first-child{
-    flex: 2;
+    flex: 1;
     font-size: 10;
     /*color: white;*/
     padding: 0px 0px 0px 15px;
@@ -379,7 +379,7 @@ footer > div:last-child{
 }
 
 .food0 > div:last-child{
-    flex: 8;
+    flex: 10;
     margin: auto;
     /*color: red;*/
 }
@@ -401,7 +401,7 @@ footer > div:last-child{
     width:1280px;
     height: 40px;
     background: #f1f2f3;
-    margin: 20px auto 0px auto;
+    margin: auto;
     color: black;
     font-size: 24px;
     text-align: center;
@@ -417,11 +417,11 @@ footer > div:last-child{
 }
 
 .category > li > .manage{ 
-    width: 100px;
+    width: 130px;
     height: 30px;
     background: #2f7af4;
     font-size: 18px;
-    margin: 5px auto ;
+    margin: 5px auto;
     /*top, right, bottom, and left*/
     text-align: cneter;
     line-height: 26px;
@@ -468,7 +468,7 @@ form{
     width: 1280px;
     height: 40px;
     background: #f1f2f3;
-    margin: 20px auto 0px auto;
+    margin: auto;
     color: black;
     font-size: 24px;
     text-align: center;
@@ -523,5 +523,22 @@ form{
     flex:1;
 }
 .table_users > td:not(:last-child) {
+    border-right: 1px solid lightgray;
+}
+
+.table_menu{
+    position: relative;
+    display: flex;
+    width: 1280px;
+    background: #ffd9d9;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.4);
+    margin: auto;
+    text-align: center;
+}
+
+.table_menu > td{
+    flex:1;
+}
+.table_menu > td:not(:last-child) {
     border-right: 1px solid lightgray;
 }
