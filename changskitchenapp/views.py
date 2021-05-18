@@ -6,6 +6,9 @@ from pyasn1.type.univ import Null
 from .forms import DishAddForm, MenuAddForm, DishEditForm
 import pyrebase
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 firebaseConfig = {
     "apiKey": "AIzaSyBTvrZE_ZCXQfCzreRzyxb06OL3cqsx_gE",
@@ -68,8 +71,8 @@ def  Menu (request):
 
         date = str(db.child('menus').child(i).child('date').get().val())
         day = db.child('menus').child(i).child('day').get().val()
-        dishes = str(db.child('menus').child(i).child('dishes').get().val())
-        
+        dishes = ConvertMenuDishToString(db.child('menus').child(i).child('dishes').get().val())
+        logger.error(dishes)
         food = {
             "date": date,
             "day": day,
@@ -81,6 +84,13 @@ def  Menu (request):
         }
     return render (request, "menu.html", context)
 
+def ConvertMenuDishToString(dishes):
+    result = ""
+    for dish in dishes:
+        name = db.child('dishes').child(dish).child('name').get().val()
+        result += str(name + "; ")
+    logger.error(result)
+    return result[0:-2]
 
 def  Menu_Add (request):
     if request.method == 'POST':
