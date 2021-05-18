@@ -26,6 +26,7 @@ urlpatterns = [
     path('home/', views.Home, name='home'),
     path('menu/', views.Menu, name='menu'),
     path('menu_add/', views.Menu_Add, name='menu_add'),
+    path('menu_delete/', views.Menu_Delete, name='menu_delete'),
     path('food/', views.Food, name='food'),
     path('order/', views.Order, name='order'),
     path('users/', views.Users, name='users'),

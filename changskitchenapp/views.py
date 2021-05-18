@@ -235,7 +235,18 @@ def Food_Add(request):
 def Search (request):
     return render (request, "search.html")
 
+def Menu_Delete(request):
+    flag = False
+    valueToDelete = request.POST.get('date')
+    if valueToDelete is None or valueToDelete =="":
+        return render(request, "menu_delete.html")
 
+    dates = db.child('menus').shallow().get().val()
+
+    if (valueToDelete in dates):
+        db.child('menus').child(valueToDelete).remove()
+        return redirect('/menu')
+    return render (request, "menu_delete.html")
 
 def Searchresults(request):
     value = request.POST.get('search')
