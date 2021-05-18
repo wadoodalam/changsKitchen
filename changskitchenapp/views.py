@@ -81,8 +81,6 @@ def  Menu (request):
         }
     return render (request, "menu.html", context)
 
-def  Menu_Manage (request):
-    return render (request, "menu_manage.html")
 
 def  Menu_Add (request):
     if request.method == 'POST':
@@ -172,9 +170,6 @@ def Food_Edit(request):
             }
             comb_list.append(dishes)
     return render(request, 'food_edit.html', {"comb_list":comb_list})
-
-                    
-    
 
 def  Order (request):
     data = db.child('orders').shallow().get().val()
@@ -417,3 +412,29 @@ def Searchresults(request):
               
             # send all data in zip form to searchusers.html
             return render(request, "searchorders.html", {"comb_list": comb_list})
+
+def Query(request):
+    comb_list = []
+    order_comb_list = []
+    q1 = request.POST.get('q1')
+    q2 = request.POST.get('q2')
+    print(q1)
+    print(q2)
+
+    if q1 is None or q2 is None  :
+        return render(request, "query.html")
+    else: 
+        price = db.child("dishes").order_by_child("price").start_at(q1).get().val()
+        #this needs conversion to render to the front end properly, everything else works
+        comb_list.append(price)
+        orderPrice = db.child("orders").order_by_child("finalPrice").start_at(q2).get().val()
+    #this needs conversion to render to the front end properly, everything else works
+        comb_list.order_comb_list(price)
+
+        context={
+            "comb_list": comb_list,
+            "order_comb_list": order_comb_list
+        }
+        return render(request, "query.html",context)
+
+    

@@ -15,6 +15,7 @@
                         <li><a href="/order">ORDER</a></li>
                         <li><a href="/users">USERS</a></li>
                         <li><a href="/search">SEARCH</a></li>
+						<li><a href="/query">ANALYTICS</a></li>
                     </ul>
                 </div>
                 <div class="intro_text">
@@ -26,12 +27,9 @@
 			<div class="inner">
 				<form method="post" action="/searchusers/">
 				{% csrf_token %}
-				<!--Type the name you want to search and click on submit-->
-				<input type="text" placeholder="Enter Title..." aria-label="Search.." name="search"
-					id="search">
+				<input type="text" placeholder="Enter Title..." aria-label="Search.." name="search" id="search">
 				<select name="category" id="category" name="" >
 					<option value="">Select Category</option>
-					<!--select type to user-->
 					<option value="Users">Users</option>
 					<option value="Dishes">Dishes</option>
 					<option value="Orders">Orders</option>

@@ -1,0 +1,91 @@
+{% load static %}
+{% csrf_token %}
+<html lang="en">
+<head>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{%static '/css/style.css' %}">
+</head>
+	<body>
+		<div class="wrap">
+            <div class="intro_bg">
+                <div class="header">
+                    <ul class="nav">
+                        <li><a href="/home">HOME</a></li>
+                        <li><a href="/menu">MENU</a></li>
+                        <li><a href="/food">FOOD</a></li>
+                        <li><a href="/order">ORDER</a></li>
+                        <li><a href="/users">USERS</a></li>
+                        <li><a href="/search">SEARCH</a></li>
+                        <li><a href="/query">ANALYTICS</a></li>
+                    </ul>
+                </div>
+
+                
+            </div>
+                Query 1: Number of dishes with price greater than
+                <form method="post" action = "">
+                    {% csrf_token %}
+                    <input type="number" placeholder="Enter Price"  name="q1" id="q1">
+                    <input type="submit" value="Search">
+                </form>
+
+                <div class ="category">
+                    <li>Food Name</li>
+                    <li>Description</li>
+                    <li>Price</li>
+                </div>
+                <table >
+
+                    {% for food in comb_list %}
+    
+                    <tr class = "table_food" >
+                        <td>{{food.name}}</td>
+                        <td>{{food.description}}</td>
+                        <td>{{food.price}}</td>
+                    </tr>
+    
+                    {% endfor %}
+                    
+                </table>      
+            </div>
+            <div>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    Query 2:  Display orders with price greater than
+                    <input type="number"  name="q2" id="q2">
+                    <input type="submit" value="Search">
+                </form>
+                <div class="datatable" id="tableContainer">
+                    <table>
+        
+                        <div class ="category_order">
+                            <li>Date</li>
+                            <li>Items</li>
+                            <li>Status</li>
+                            <li>Price</li>
+                            <li>Tax</li>
+                            <li>Tip</li>
+                            <li>Final Price</li>
+                            <li>User</li>
+                        </div>
+        
+                        {% for order in order_comb_list %}
+        
+                        <tr class = "table_order">
+                            <td>{{order.stringDate}}</td>
+                            <td>{{order.items}}</td>
+                            <td>{{order.status}}</td>
+                            <td>{{order.cost}}</td>
+                            <td>{{order.tax}}</td>
+                            <td>{{order.tip}}</td>
+                            <td>{{order.finalPrice}}</td>
+                            <td>{{order.uid}}</td>
+                        </tr>
+        
+                        {% endfor %}
+                        
+                    </table>
+            </div>
+		</div>
+	</body>
+</html>
