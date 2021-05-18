@@ -181,6 +181,7 @@ def  Order (request):
         orderslist.append(i)
     for i in orderslist:
 
+        orderId = db.child('orders').child(i).get().key()
         date = db.child('orders').child(i).child('date').get().val()
         items = ConvertToString(db.child('orders').child(i).child('items').get().val())
         status = db.child('orders').child(i).child('status').get().val()
@@ -192,6 +193,7 @@ def  Order (request):
         uid = db.child('orders').child(i).child('uid').get().val()
 
         order = {
+            "orderId": orderId,
             "date": date,
             "finalPrice": finalPrice,
             "items": items,
