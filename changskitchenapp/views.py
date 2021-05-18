@@ -65,8 +65,9 @@ def  Menu (request):
     orderslist = []
     comb_list = []
     # append all the id in uidlist
-    for i in data:
-        orderslist.append(i)
+    if data:
+        for i in data:
+            orderslist.append(i)
     for i in orderslist:
 
         date = str(db.child('menus').child(i).child('date').get().val())
@@ -79,9 +80,9 @@ def  Menu (request):
             "dishes": dishes
         }
         comb_list.append(food)
-        context={
+    context={
         "comb_list": comb_list,
-        }
+    }
     return render (request, "menu.html", context)
 
 def ConvertMenuDishToString(dishes):

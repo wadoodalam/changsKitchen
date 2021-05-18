@@ -2,6 +2,7 @@ from django import forms
 from django_select2 import forms as s2forms
 import pyrebase
 import logging
+import calendar
 
 firebaseConfig = {
     "apiKey": "AIzaSyBTvrZE_ZCXQfCzreRzyxb06OL3cqsx_gE",
@@ -69,7 +70,6 @@ class DateInput(forms.DateInput):
 class MenuAddForm(forms.Form):
 
     date= forms.DateField( widget=DateInput)
-    day= forms.CharField(max_length=1000)
     dishes = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
@@ -77,9 +77,11 @@ class MenuAddForm(forms.Form):
     )
     
     def clean(self):
+        week_days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
         cleaned_data = super(MenuAddForm, self).clean()
         date = str(cleaned_data.get('date'))
-        day = cleaned_data.get('day')
+        day = week_days[cleaned_data.get('date').weekday()]
         dishes = cleaned_data.get('dishes')
         logger.error(dishes)
         # the date can be null and the message This field is required is still displayed on the front end. Needs fixing
