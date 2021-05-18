@@ -27,8 +27,8 @@ for entry in data:
 logger.error(CURR_DISHES)
 
 class DishAddForm(forms.Form):
-    description= forms.CharField(max_length=1000)
     name= forms.CharField(max_length=1000)
+    description= forms.CharField(max_length=1000)
     price= forms.FloatField()
     
     def clean(self):

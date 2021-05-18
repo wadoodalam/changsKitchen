@@ -50,8 +50,6 @@ def  Users (request):
             "phone": phone,
             "uid": uid
         }
-
-        # the list contains the description, name and price of all dishes.
         
         comb_list.append(user)
     
@@ -201,7 +199,7 @@ def  Order (request):
         tax = "{:10.2f}".format(db.child('orders').child(i).child('tax').get().val())
         tip = "{:10.2f}".format(db.child('orders').child(i).child('tip').get().val())
         finalPrice = "{:10.2f}".format(db.child('orders').child(i).child('finalPrice').get().val())
-        uid = db.child('orders').child(i).child('uid').get().val()
+        uid = ConvertIdToName(db.child('orders').child(i).child('uid').get().val())
 
         order = {
             "orderId": orderId,
@@ -224,7 +222,11 @@ def  Order (request):
 
 
     return render (request, "order.html", context)
-    
+
+def ConvertIdToName(uid):
+    name = db.child('users').child(uid).child('name').get().val()
+    return name
+
 def ConvertToString(items):
     result = ""
     for i in items:
