@@ -93,28 +93,22 @@ class MenuAddForm(forms.Form):
         cleaned_data = super(MenuAddForm, self).clean()
         date = str(cleaned_data.get('date'))
 
-        dishNamesFromDBCoresspondingFromUser = []
+        dishIDFromDBCoresspondingFromUser = []
        
         #list of dishes seleted from the user returned
         dishNamesFromUser = []
-        dishNamesFromUser = cleaned_data.get('dishes')
+        dishNamesFromUser = str(cleaned_data.get('dishes'))
 
         # this code fetches the dishes from db corresponding to name of the dish selected by the user
-        for dishid in dishNamesFromUser:
-            name = db.child('dishes').child(i).child('name').get().val()
-            description = db.child('dishes').child(i).child('description').get().val()
-            price = str(db.child('dishes').child(i).child('price').get().val())
-            food = {
-                "name": name,
-                "description": description,
-                "price": price
-            }
-            dishNamesFromDBCoresspondingFromUser.append(data)
+        for i in orderslist:
+            dish_id = []
+            dish_id.append(db.child("dishes").child(i).order_by_child('name').equal_to(dishNamesFromUser).get())
+
 
         # the date can be null and the message This field is required is still displayed on the front end. Needs fixing
         if not date or not dishNamesFromUser:
             raise forms.ValidationError('You have to write something!')
-        data = {"date":date, "dishNamesFromDBCoresspondingFromUser":dishNamesFromDBCoresspondingFromUser}
+        data = {"date":date, "dish_id":dish_id}
         db.child('menus').child(date).set(data)
         i = 0
         for dish in dishNamesFromUser:
