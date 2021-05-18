@@ -20,6 +20,7 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("select2/", include("django_select2.urls")),
 
     path('', views.Home, name='home'),
     path('home/', views.Home, name='home'),

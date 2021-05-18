@@ -17,3 +17,7 @@ firebaseConfig = {
     }
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firebase.database()
+data = db.child('dishes').shallow().get().val()
+orderslist = []
+comb_list = []
+# append all the id in uidlist
