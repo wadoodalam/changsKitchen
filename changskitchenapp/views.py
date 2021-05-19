@@ -349,7 +349,6 @@ def Searchresults(request):
                 value=value.lower()
                 if (val == value or val1 == value or val2 == value):
                     requid.append(i)
-            print(requid)
             if requid=='null':
                 return render(request, "search.html")
             
@@ -406,10 +405,8 @@ def Searchresults(request):
                 # we will store that in requid
             if (val == value or val1 == value or val2 == value or val3 == value or val4 == value or val5 == value or val6 == value or val7 == value or val8 == value or val9 == value):
                 requid.append(i)
-            print(requid)
             if requid=='null':
                 return render(request, "search.html")
-            print(requid)
               
             # then we will retrieve all the data related to that uid
             for i in requid:
