@@ -453,10 +453,12 @@ def Query(request):
 
     if q1:
         foodList = db.child("dishes").order_by_child("price").start_at(int(q1)).get().val()
-        for food in foodList:
-            description = db.child('dishes').child(food).child('description').get().val()
-            name = db.child('dishes').child(food).child('name').get().val()
-            price = "{:10.2f}".format(db.child('dishes').child(food).child('price').get().val())
+        for i in foodList:
+            food = db.child('dishes').child(i).get().val()
+            description = food['description']
+            name = food['name']
+            price = "{:10.2f}".format(food['price'])
+            
             food = {
                 "description": description,
                 "name": name,
@@ -469,15 +471,17 @@ def Query(request):
         for i in orderslist:
 
             orderId = db.child('orders').child(i).get().key()
-            date = db.child('orders').child(i).child('date').get().val()
-            items = ConvertToString(db.child('orders').child(i).child('items').get().val())
-            status = db.child('orders').child(i).child('status').get().val()
-            stringDate = db.child('orders').child(i).child('stringDate').get().val()
-            cost = str(db.child('orders').child(i).child('summaryPrice').get().val())
-            tax = "{:10.2f}".format(db.child('orders').child(i).child('tax').get().val())
-            tip = "{:10.2f}".format(db.child('orders').child(i).child('tip').get().val())
-            finalPrice = "{:10.2f}".format(db.child('orders').child(i).child('finalPrice').get().val())
-            uid = ConvertIdToName(db.child('orders').child(i).child('uid').get().val())
+            order = db.child('orders').child(i).get().val()
+
+            date = order['date']
+            items = ConvertToString(order['items'])
+            status = order['status']
+            stringDate = order['stringDate']
+            cost = str(order['summaryPrice'])
+            tax = "{:10.2f}".format(order['tax'])
+            tip = "{:10.2f}".format(order['tip'])
+            finalPrice = "{:10.2f}".format(order['finalPrice'])
+            uid = ConvertIdToName(order['uid'])
 
             order = {
                 "orderId": orderId,
