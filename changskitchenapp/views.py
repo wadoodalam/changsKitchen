@@ -67,7 +67,7 @@ def  Menu (request):
         for i in data:
             orderslist.append(i)
     for i in orderslist:
-
+        logger.error(db.child('menus').child(i).child('dishes').get().val())
         date = str(db.child('menus').child(i).child('date').get().val())
         day = db.child('menus').child(i).child('day').get().val()
         dishes = ConvertMenuDishToString(db.child('menus').child(i).child('dishes').get().val())
@@ -85,7 +85,9 @@ def  Menu (request):
 
 def ConvertMenuDishToString(dishes):
     result = ""
+    logger.error(dishes)
     for dish in dishes:
+        logger.error(dish)
         name = db.child('dishes').child(dish).child('name').get().val()
         result += str(name + "; ")
     logger.error(result)
@@ -441,23 +443,48 @@ def Query(request):
     order_comb_list = []
     q1 = request.POST.get('q1')
     q2 = request.POST.get('q2')
-    print(q1)
-    print(q2)
 
-    if q1 is None or q2 is None  :
-        return render(request, "query.html")
-    else: 
-        price = db.child("dishes").order_by_child("price").start_at(q1).get().val()
-        #this needs conversion to render to the front end properly, everything else works
-        comb_list.append(price)
-        orderPrice = db.child("orders").order_by_child("finalPrice").start_at(q2).get().val()
-    #this needs conversion to render to the front end properly, everything else works
-        comb_list.order_comb_list(price)
+    if q1:
+        foodList = db.child("dishes").order_by_child("price").start_at(int(q1)).get().val()
+        for food in foodList:
+            description = db.child('dishes').child(food).child('description').get().val()
+            name = db.child('dishes').child(food).child('name').get().val()
+            price = "{:10.2f}".format(db.child('dishes').child(food).child('price').get().val())
+            food = {
+                "description": description,
+                "name": name,
+                "price": price
+            }
+            comb_list.append(food)
 
-        context={
-            "comb_list": comb_list,
-            "order_comb_list": order_comb_list
-        }
-        return render(request, "query.html", context)
+    if q2:
+        orderslist = db.child("orders").order_by_child("finalPrice").start_at(int(q2)).get().val()
+        for i in orderslist:
 
+            orderId = db.child('orders').child(i).get().key()
+            date = db.child('orders').child(i).child('date').get().val()
+            items = ConvertToString(db.child('orders').child(i).child('items').get().val())
+            status = db.child('orders').child(i).child('status').get().val()
+            stringDate = db.child('orders').child(i).child('stringDate').get().val()
+            cost = str(db.child('orders').child(i).child('summaryPrice').get().val())
+            tax = "{:10.2f}".format(db.child('orders').child(i).child('tax').get().val())
+            tip = "{:10.2f}".format(db.child('orders').child(i).child('tip').get().val())
+            finalPrice = "{:10.2f}".format(db.child('orders').child(i).child('finalPrice').get().val())
+            uid = ConvertIdToName(db.child('orders').child(i).child('uid').get().val())
+
+            order = {
+                "orderId": orderId,
+                "date": date,
+                "finalPrice": finalPrice,
+                "items": items,
+                "status": status,
+                "stringDate": stringDate,
+                "cost": cost,
+                "tax": tax,
+                "tip": tip,
+                "uid": uid
+            }
+            order_comb_list.append(order)
+    
+    return render(request, 'query.html', {"comb_list":comb_list, "order_comb_list":order_comb_list})
     
