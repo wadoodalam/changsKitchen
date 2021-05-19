@@ -32,16 +32,23 @@ def  Users (request):
     data = db.child('users').shallow().get().val()
     orderslist = []
     comb_list = []
+    logger.error(data)
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
     for i in orderslist:
-
-        email = db.child('users').child(i).child('email').get().val()
-        name = db.child('users').child(i).child('name').get().val()
-        password = db.child('users').child(i).child('password').get().val()
-        phone = str(db.child('users').child(i).child('phone').get().val())
-        uid = db.child('users').child(i).child('uid').get().val()
+        user = db.child('users').child(i).get().val()
+        try: 
+            email = user['email']
+        except:
+            email = 'Does not provide'
+        name = user['name']
+        password = user['password']
+        try: 
+            phone = user['phone']
+        except:
+            phone = 'Does not provide'
+        uid = user['uid']
 
         user = {
             "email": email,
