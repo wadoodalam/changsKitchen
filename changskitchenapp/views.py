@@ -185,6 +185,14 @@ def  Order (request):
     orderslist = []
     comb_list = []
     val_delete = 'null'
+
+    if request.method == 'POST':
+        requestData = json.loads(request.body)
+        orderId = requestData['id']
+        orderStatus = requestData['status']
+        logger.error(orderId + " " + orderStatus)
+        db.child('orders').child(orderId).child("status").set(orderStatus)
+
     # append all the id in uidlist
     for i in data:
         orderslist.append(i)
