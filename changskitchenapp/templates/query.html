@@ -20,11 +20,16 @@
                     </ul>
                 </div>
 
+                <div class="intro_text">
+                    <h1>Analytics</h1>
+                    <!--h4 class ="contents1"></h4-->
+                </div>
                 
             </div>
-                Query 1: Number of dishes with price greater than
+                <br>
                 <form method="post" action = "">
                     {% csrf_token %}
+                    Number of dishes with price greater than
                     <input type="number" placeholder="Enter Price"  name="q1" id="q1">
                     <input type="submit" value="Search">
                 </form>
@@ -37,7 +42,7 @@
                 <table >
 
                     {% for food in comb_list %}
-    
+                    
                     <tr class = "table_food" >
                         <td>{{food.name}}</td>
                         <td>{{food.description}}</td>
@@ -48,16 +53,18 @@
                     
                 </table>      
             </div>
+
+            <br><br><br>
             <div>
+                <br>
                 <form method="post" action="">
                     {% csrf_token %}
-                    Query 2:  Display orders with price greater than
-                    <input type="number"  name="q2" id="q2">
+                    Display orders with price greater than
+                    <input type="number" placeholder="Enter Price" name="q2" id="q2">
                     <input type="submit" value="Search">
                 </form>
                 <div class="datatable" id="tableContainer">
                     <table>
-        
                         <div class ="category_order">
                             <li>Date</li>
                             <li>Items</li>

@@ -458,6 +458,6 @@ def Query(request):
             "comb_list": comb_list,
             "order_comb_list": order_comb_list
         }
-        return render(request, "query.html",context)
+        return render(request, "query.html", context)
 
     

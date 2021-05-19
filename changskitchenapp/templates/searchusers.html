@@ -24,26 +24,29 @@
                 </div>
             </div>
             <div class="tm-main-content">
-                <div class="datatable" id="tableContainer">
-                    <table>
-                        <div class ="category">
-                            <li>Name</li>
-                            <li>Email</li>
-                            <li>Phone</li>
-                            <li>User ID</li>
-                        </div>
-                        
-                        {% for user in comb_list %}
-                        <tr class = "table_users">
-                            <td>{{user.name}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.phone}}</td>
-                            <td>{{user.uid}}</td>
-                        </tr>
-                        {% endfor %}
-                        
-                    </table>
-                </div>
+                <section class="tm-section tm-section-small text-center">
+                    <div class="datatable" id="tableContainer">
+                        <table>
+                            <br>
+                            <div class ="category">
+                                <li>Name</li>
+                                <li>Email</li>
+                                <li>Phone</li>
+                                <li>User ID</li>
+                            </div>
+                            
+                            {% for user in comb_list %}
+                            <tr class = "table_users">
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.phone}}</td>
+                                <td>{{user.uid}}</td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </table>
+                    </div>
+                </section>
             </div>
 	    </div>
     </body>
